@@ -9,3 +9,28 @@
 
  - OPENAI_API_KEY: OpenAIのAPIキー
  - OPENAI_ORG_KEY: OpenAIのArsagaのOrganization ID
+
+### 初期設定
+
+プロジェクトのルートディレクトリで下記のコマンドを実行する
+
+```bash
+# .github/workflows ディレクトリがなければ作成
+mkdir -p ./.github/workflows/
+
+# YAMLファイルの内容をファイルに書き込む
+echo "name: Call Reusable GPT Review Workflow
+
+on: [pull_request]
+
+jobs:
+  call_reusable_workflow:
+    uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main
+    secrets:
+      PERSONAL_GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+      OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
+      OPENAI_ORG_KEY: \${{ secrets.OPENAI_ORG_KEY }}
+    with:
+      PATCH_PR: \${{ github.event.pull_request.number }}
+      PATCH_REPO: \${{ github.repository }}" > ./.github/workflows/call_gpt_reviewer.yml
+```
