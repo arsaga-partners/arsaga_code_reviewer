@@ -71,7 +71,6 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
-          echo ${{ inputs.PATCH_PR }}
           gpt github review \
             --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
             --pull-request ${{ inputs.PATCH_PR }} \
