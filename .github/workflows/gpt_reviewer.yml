@@ -3,7 +3,7 @@ name: 'Reusable GPT Review Workflow'
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
+      PERSONAL_GITHUB_TOKEN:
         description: 'Derivative token for using the GitHub REST API'
         required: true
         type: string
@@ -62,7 +62,7 @@ jobs:
           source .env/bin/activate
 
           gpt github review \
-            --access-token ${{ inputs.GITHUB_TOKEN }} \
+            --access-token ${{ inputs.PERSONAL_GITHUB_TOKEN }} \
             --pull-request ${{ inputs.PATCH_PR }} \
             --repository ${{ inputs.PATCH_REPO }}
         env:
