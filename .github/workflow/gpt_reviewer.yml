@@ -1,0 +1,72 @@
+name: 'Reusable GPT Review Workflow'
+
+on:
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        description: 'Derivative token for using the GitHub REST API'
+        required: true
+        type: string
+      OPENAI_API_KEY:
+        description: 'OpenAI API Key'
+        required: true
+        type: string
+      OPENAI_ORG_KEY:
+        description: 'OpenAI Organization ID'
+        required: true
+        type: string
+      AZURE_OPENAI_API:
+        description: 'URL of custom Azure Open AI API'
+        required: false
+        type: string
+      AZURE_OPENAI_API_KEY:
+        description: 'Key of custom Azure Open AI API'
+        required: false
+        type: string
+    inputs:
+      PATCH_PR:
+        description: 'Pull Request Number'
+        required: true
+        type: string
+      PATCH_REPO:
+        description: 'GitHub Repository'
+        required: true
+        type: string
+
+jobs:
+  gpt_review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install gpt-review
+        shell: bash
+        run: |
+          sudo apt-get update
+          python3 -m venv .env
+          source .env/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install gpt-review
+
+      - name: Review PR and make comment
+        shell: bash
+        run: |
+          source .env/bin/activate
+
+          gpt github review \
+            --access-token ${{ inputs.GITHUB_TOKEN }} \
+            --pull-request ${{ inputs.PATCH_PR }} \
+            --repository ${{ inputs.PATCH_REPO }}
+        env:
+          OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
+          OPENAI_ORG_KEY: ${{ inputs.OPENAI_ORG_KEY }}
+          AZURE_OPENAI_API_KEY: ${{ inputs.AZURE_OPENAI_API_KEY || '' }}
+          AZURE_OPENAI_API: ${{ inputs.AZURE_OPENAI_API || '' }}
