@@ -6,23 +6,18 @@ on:
       PERSONAL_GITHUB_TOKEN:
         description: 'Derivative token for using the GitHub REST API'
         required: true
-        type: string
       OPENAI_API_KEY:
         description: 'OpenAI API Key'
         required: true
-        type: string
       OPENAI_ORG_KEY:
         description: 'OpenAI Organization ID'
         required: true
-        type: string
       AZURE_OPENAI_API:
         description: 'URL of custom Azure Open AI API'
         required: false
-        type: string
       AZURE_OPENAI_API_KEY:
         description: 'Key of custom Azure Open AI API'
         required: false
-        type: string
     inputs:
       PATCH_PR:
         description: 'Pull Request Number'
@@ -62,11 +57,11 @@ jobs:
           source .env/bin/activate
 
           gpt github review \
-            --access-token ${{ inputs.PERSONAL_GITHUB_TOKEN }} \
+            --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
             --pull-request ${{ inputs.PATCH_PR }} \
             --repository ${{ inputs.PATCH_REPO }}
         env:
-          OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
-          OPENAI_ORG_KEY: ${{ inputs.OPENAI_ORG_KEY }}
-          AZURE_OPENAI_API_KEY: ${{ inputs.AZURE_OPENAI_API_KEY || '' }}
-          AZURE_OPENAI_API: ${{ inputs.AZURE_OPENAI_API || '' }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
+          AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY || '' }}
+          AZURE_OPENAI_API: ${{ secrets.AZURE_OPENAI_API || '' }}
