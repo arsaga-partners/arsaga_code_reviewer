@@ -9,3 +9,7 @@
 
  - OPENAI_API_KEY: OpenAIのAPIキー
  - OPENAI_ORG_KEY: OpenAIのArsagaのOrganization ID
+
+### 初期設定
+
+下記のコマンドを実行する
