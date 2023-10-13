@@ -27,6 +27,10 @@ on:
         description: 'GitHub Repository'
         required: true
         type: string
+      CACHE_KEY:
+        description: 'A unique key for caching dependencies'
+        required: false
+        type: string
 
 jobs:
   gpt_review:
@@ -41,6 +45,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ env.CACHE_KEY }}  # キャッシュキーをenvから取得します
+          restore-keys: |
+            ${{ env.CACHE_KEY }}
+        env:
+          CACHE_KEY: ${{ inputs.CACHE_KEY || 'CACHE_KEY' }}
 
       - name: Install gpt-review
         shell: bash
