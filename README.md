@@ -9,4 +9,3 @@
 
  - OPENAI_API_KEY: OpenAIのAPIキー
  - OPENAI_ORG_KEY: OpenAIのArsagaのOrganization ID
- - PERSONAL_GITHUB_TOKEN: GithubのPersonal Access Token(arsaga-deployerなどの退職しないアカウント)
