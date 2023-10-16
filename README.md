@@ -12,7 +12,7 @@
 
 ### 初期設定
 
-プロジェクトのルートディレクトリで下記のコマンドを実行する
+下記のコマンドを右のアイコンでコピーしてプロジェクトのルートディレクトリで実行する
 
 ```bash
 # .github/workflows ディレクトリがなければ作成
@@ -29,7 +29,8 @@ on:
 
 jobs:
   call_reusable_workflow:
-    uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main
+    # 末尾の[main]をコミットハッシュに変更すればCIの実行内容を固定できる
+    uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main //
     secrets:
       PERSONAL_GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}

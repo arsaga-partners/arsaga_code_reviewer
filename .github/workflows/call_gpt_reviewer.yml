@@ -8,6 +8,7 @@ on:
 
 jobs:
   call_reusable_workflow:
+    # 末尾の[main]をコミットハッシュに変更すればCIの実行内容を固定できる
     uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main
     secrets:
       PERSONAL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
