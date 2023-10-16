@@ -21,7 +21,11 @@ mkdir -p ./.github/workflows/
 # YAMLファイルの内容をファイルに書き込む
 echo "name: Call Reusable GPT Review Workflow
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - dev
+      - develop
 
 jobs:
   call_reusable_workflow:
