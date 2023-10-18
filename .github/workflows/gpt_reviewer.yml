@@ -71,6 +71,7 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
+          ls
           for file in ./gpt-review/src/gpt_review/prompts/*.yaml; do
             sed -i -e '5i \\tPlease reply in Japanese' "$file"
           done
