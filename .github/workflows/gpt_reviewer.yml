@@ -71,6 +71,9 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
+          for file in ./gpt-review/src/gpt_review/prompts/*.yaml; do
+            sed -i 's/template: |\n/template: |\n  Please reply in Japanese.\n/' "$file"
+          done
           gpt github review \
             --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
             --pull-request ${{ inputs.PATCH_PR }} \
