@@ -80,6 +80,13 @@ jobs:
           OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
           AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY || '' }}
           AZURE_OPENAI_API: ${{ secrets.AZURE_OPENAI_API || '' }}
+
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          ACTION_REF: ${{ github.action_ref || env.BRANCH }}
+          GIT_COMMIT_HASH: ${{ github.event.pull_request.head.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          LINK: "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+
           FULL_SUMMARY: true
           FILE_SUMMARY: true
           TEST_SUMMARY: false
