@@ -65,17 +65,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install langchain==0.0.301
           python -m pip install pydantic==1.10.13
-          python -m pip install gpt-review==v0.9.5
+          python -m pip install git+https://github.com/arsaga-partners/gpt-review.git@develop
 
       - name: Review PR and make comment
         shell: bash
         run: |
           source .env/bin/activate
-          pwd
-          ls
-          for file in ./gpt-review/src/gpt_review/prompts/*.yaml; do
-            sed -i -e '5i \\tPlease reply in Japanese' "$file"
-          done
           gpt github review \
             --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
             --pull-request ${{ inputs.PATCH_PR }} \
