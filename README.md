@@ -35,6 +35,9 @@ jobs:
       PERSONAL_GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
       OPENAI_ORG_KEY: \${{ secrets.OPENAI_ORG_KEY }}
+      AZURE_OPENAI_API: ${{ secrets.AZURE_OPENAI_API }}
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
     with:
       PATCH_PR: \${{ github.event.pull_request.number }}
       PATCH_REPO: \${{ github.repository }}" > ./.github/workflows/call_gpt_reviewer.yml

@@ -14,9 +14,12 @@ on:
         required: true
       AZURE_OPENAI_API:
         description: 'URL of custom Azure Open AI API'
-        required: false
+        required: true
       AZURE_OPENAI_API_KEY:
         description: 'Key of custom Azure Open AI API'
+        required: true
+      TRANSLATION_API_KEY:
+        description: 'Key of translation API'
         required: false
     inputs:
       PATCH_PR:
