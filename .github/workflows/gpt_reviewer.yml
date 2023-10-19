@@ -68,7 +68,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install langchain==0.0.301
           python -m pip install pydantic==1.10.13
-          python -m pip install git+https://github.com/arsaga-partners/gpt-review.git@develop
+          python -m pip install gpt-review==v0.9.5
 
       - name: Review PR and make comment
         shell: bash
@@ -80,6 +80,8 @@ jobs:
             "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
             > "$file_path"
           gpt review diff --help
+          ret=$(gpt review diff --diff file_path)
+          echo "Return value of command1: $ret"
           # ret=$(gpt review diff)
           # echo "Return value of command1: $response"
           # gpt review --help
