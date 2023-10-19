@@ -74,6 +74,9 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
+          gpt COMMAND --help
+          ret1=gpt ask "What is the capital of France?"
+          echo "Return value of command1: $ret1"
           ret=gpt review diff
           echo "Return value of command1: $ret"
           # gpt github review \
