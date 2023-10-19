@@ -91,12 +91,10 @@ jobs:
             # --data-urlencode 'target_lang=JA')
 
           # コメント
-          url=""
-          body="{\"body\": \"$review\", \"commit_id\": \"${{ github.event.pull_request.head.sha }}\", \"event\": \"COMMENT\"}"
           response=$( \
             curl -s -X POST -H "Authorization: token ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews
+            https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews \
             -d '{ \
               "commit_id":"${{ github.event.pull_request.head.sha }}", \
               "event":"COMMENT", \
