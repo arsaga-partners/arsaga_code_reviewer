@@ -75,11 +75,11 @@ jobs:
         run: |
           source .env/bin/activate
           gpt --help
-          ret1=\$(gpt ask "What is the capital of France?")
+          ret1=$(gpt ask "What is the capital of France?")
           echo "Return value of command1: $ret1"
           gpt review --help
           gpt review diff --help
-          ret=\$(gpt review diff)
+          ret=$(gpt review diff)
           echo "Return value of command1: $ret"
           # gpt github review \
           #   --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
