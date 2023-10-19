@@ -90,6 +90,8 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           LINK: "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
 
+          TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY || '' }}
+
           FULL_SUMMARY: true
           FILE_SUMMARY: true
           TEST_SUMMARY: false
