@@ -80,7 +80,7 @@ jobs:
             "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
             > "$file_path"
           gpt review diff --help
-          ret=$(gpt review diff --diff file_path)
+          ret=$(gpt review diff --diff $file_path)
           echo "Return value of command1: $ret"
           # ret=$(gpt review diff)
           # echo "Return value of command1: $response"
