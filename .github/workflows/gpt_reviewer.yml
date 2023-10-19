@@ -78,7 +78,7 @@ jobs:
           curl -H "Accept: application/vnd.github.v3.diff" \
             -H "Authorization: Bearer ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
-            > "$file_path"
+            | jq -r '.response' > "$file_path"
           gpt review diff --help
           ret=$(gpt review diff --diff $file_path)
           echo "Return value of command1: $ret"
