@@ -80,18 +80,14 @@ jobs:
             "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
             > "$file_path"
           gpt review diff --help
-          ret=$(gpt review diff --diff $file_path | jq -r '.response')
-          echo "Return value of command1: $ret"
-          # ret=$(gpt review diff)
-          # echo "Return value of command1: $response"
-          # gpt review --help
-          # gpt review diff --help
-          # ret=$(gpt review diff)
-          # echo "Return value of command1: $ret"
-          # gpt github review \
-          #   --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
-          #   --pull-request ${{ inputs.PATCH_PR }} \
-          #   --repository ${{ inputs.PATCH_REPO }}
+          review=$(gpt review diff --diff $file_path | jq -r '.response')
+          echo "Return value of command1: $review"
+          # result=$(curl -X POST 'https://api.deepl.com/v2/translate' \
+            # --header 'Authorization: DeepL-Auth-Key ${{ secrets.TRANSLATION_API_KEY }}' \
+            # --data-urlencode 'text=$review' \
+            # --data-urlencode 'source_lang=EN' \
+            # --data-urlencode 'target_lang=JA')
+          
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
@@ -103,8 +99,6 @@ jobs:
           GIT_COMMIT_HASH: ${{ github.event.pull_request.head.sha }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           LINK: "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
-
-          TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY || '' }}
 
           FULL_SUMMARY: true
           FILE_SUMMARY: true
