@@ -74,20 +74,27 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
+
+          # レビュー
           file_path="./diff.txt"
           curl -H "Accept: application/vnd.github.v3.diff" \
             -H "Authorization: Bearer ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
             > "$file_path"
-          gpt review diff --help
           review=$(gpt review diff --diff $file_path | jq -r '.response')
-          echo "Return value of command1: $review"
+
+          # 翻訳
           # result=$(curl -X POST 'https://api.deepl.com/v2/translate' \
             # --header 'Authorization: DeepL-Auth-Key ${{ secrets.TRANSLATION_API_KEY }}' \
             # --data-urlencode 'text=$review' \
             # --data-urlencode 'source_lang=EN' \
             # --data-urlencode 'target_lang=JA')
-          
+
+          # コメント
+          url="https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews"
+          body="{\"body\": \"$review\", \"commit_id\": \"${{ github.event.pull_request.head.sha }}\", \"event\": \"COMMENT\"}"
+          response=$(curl -s -X POST -H "Authorization: token ${{ secrets.PERSONAL_GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" -d "$body" "$url")
+          echo "$response"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
