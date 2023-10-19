@@ -74,10 +74,12 @@ jobs:
         shell: bash
         run: |
           source .env/bin/activate
-          gpt github review \
-            --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
-            --pull-request ${{ inputs.PATCH_PR }} \
-            --repository ${{ inputs.PATCH_REPO }}
+          ret=gpt review
+          echo "Return value of command1: $ret"
+          # gpt github review \
+          #   --access-token ${{ secrets.PERSONAL_GITHUB_TOKEN }} \
+          #   --pull-request ${{ inputs.PATCH_PR }} \
+          #   --repository ${{ inputs.PATCH_REPO }}
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
