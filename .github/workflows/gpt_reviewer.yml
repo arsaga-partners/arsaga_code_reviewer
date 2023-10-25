@@ -89,6 +89,9 @@ jobs:
 
           echo "$review"
 
+          # 改行とダブルクォートをエスケープ
+          review=$(echo -n "$review" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+
           # コメント
           response=$( \
             curl -s -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
