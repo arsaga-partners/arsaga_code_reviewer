@@ -90,6 +90,8 @@ jobs:
             --data-urlencode 'source_lang=EN' \
             --data-urlencode 'target_lang=JA')
 
+          echo "$review"
+
           # コメント
           response=$( \
             curl -s -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
