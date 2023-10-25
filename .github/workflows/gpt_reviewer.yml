@@ -14,13 +14,13 @@ on:
         required: true
       AZURE_OPENAI_API:
         description: 'URL of custom Azure Open AI API'
-        required: true
+        required: false
       AZURE_OPENAI_API_KEY:
         description: 'Key of custom Azure Open AI API'
-        required: true
+        required: false
       TRANSLATION_API_KEY:
         description: 'Key of translation API'
-        required: false
+        required: true
     inputs:
       PATCH_PR:
         description: 'Pull Request Number'
