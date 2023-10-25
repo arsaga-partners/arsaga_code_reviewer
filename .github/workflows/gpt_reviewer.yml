@@ -78,25 +78,25 @@ jobs:
           # レビュー
           file_path="./diff.txt"
           # curl -H "Accept: application/vnd.github.v3.diff" \
-            # -H "Authorization: Bearer ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
-            # "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
-            # > "$file_path"
+          #   -H "Authorization: Bearer ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
+          #   "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
+          #   > "$file_path"
           # review=$(gpt review diff --diff $file_path | jq -r '.response')
-
+          review='This is Test'
           # 翻訳
-          # result=$(curl -X POST 'https://api.deepl.com/v2/translate' \
-            # --header 'Authorization: DeepL-Auth-Key ${{ secrets.TRANSLATION_API_KEY }}' \
-            # --data-urlencode 'text=$review' \
-            # --data-urlencode 'source_lang=EN' \
-            # --data-urlencode 'target_lang=JA')
+          review=$(curl -X POST 'https://api.deepl.com/v2/translate' \
+            --header 'Authorization: DeepL-Auth-Key ${{ secrets.TRANSLATION_API_KEY }}' \
+            --data-urlencode 'text=$review' \
+            --data-urlencode 'source_lang=EN' \
+            --data-urlencode 'target_lang=JA')
 
           # コメント
-          # response=$( \
-            # curl -s -X POST -H "Authorization: token ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
-            # -H "Accept: application/vnd.github+json" \
-            # https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews \
-            # -d "{ \"commit_id\":\"${{ github.event.pull_request.head.sha }}\", \"event\":\"COMMENT\", \"body\":\"$review\"  }")
-          # echo "$response"
+          response=$( \
+            curl -s -X POST -H "Authorization: token ${{ secrets.PERSONAL_GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews \
+            -d "{ \"commit_id\":\"${{ github.event.pull_request.head.sha }}\", \"event\":\"COMMENT\", \"body\":\"$review\"  }")
+          echo "$response"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_ORG_KEY: ${{ secrets.OPENAI_ORG_KEY }}
