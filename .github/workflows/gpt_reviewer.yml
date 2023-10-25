@@ -74,18 +74,18 @@ jobs:
 
           # レビュー
           file_path="./diff.txt"
-          # curl -H "Accept: application/vnd.github.v3.diff" \
-          #   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          #   "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
-          #   > "$file_path"
-          # review=$(gpt review diff --diff $file_path | jq -r '.response')
-          review='This is Test'
+          curl -H "Accept: application/vnd.github.v3.diff" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}" --connect-timeout 10 \
+            > "$file_path"
+          review=$(gpt review diff --diff $file_path | jq -r '.response')
+
           # 翻訳
           review=$(curl -X POST 'https://api.deepl.com/v2/translate' \
             --header 'Authorization: DeepL-Auth-Key ${{ secrets.TRANSLATION_API_KEY }}' \
-            --data-urlencode 'text=$review' \
+            --data-urlencode "text=$review" \
             --data-urlencode 'source_lang=EN' \
-            --data-urlencode 'target_lang=JA')
+            --data-urlencode 'target_lang=JA' | jq -r '.translations[].text')
 
           echo "$review"
 
