@@ -3,9 +3,6 @@ name: 'Reusable GPT Review Workflow'
 on:
   workflow_call:
     secrets:
-      PERSONAL_GITHUB_TOKEN:
-        description: 'Derivative token for using the GitHub REST API'
-        required: true
       OPENAI_API_KEY:
         description: 'OpenAI API Key'
         required: true
