@@ -90,7 +90,7 @@ jobs:
           echo "$review"
 
           # JSONが崩れる特殊文字をエスケープ
-          review=$(echo -n "$review" | jq @json)
+          review=$(echo -n "$review" | jq -R @json)
 
           # コメント
           response=$( \
