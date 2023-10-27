@@ -87,17 +87,18 @@ jobs:
             --data-urlencode 'source_lang=EN' \
             --data-urlencode 'target_lang=JA' | jq -r '.translations[].text')
 
-          echo "$review"
-
           # JSONが崩れる特殊文字をエスケープ
           review=$(echo -n "$review" | jq -R @json)
+          review_body="{ \"commit_id\":\"${{ github.event.pull_request.head.sha }}\", \"event\":\"COMMENT\", \"body\":\"$review\" }"
+
+          echo "$review_body"
 
           # コメント
           response=$( \
             curl -s -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${{ inputs.PATCH_REPO }}/pulls/${{ inputs.PATCH_PR }}/reviews \
-            -d "{ \"commit_id\":\"${{ github.event.pull_request.head.sha }}\", \"event\":\"COMMENT\", \"body\":\"$review\" }")
+            -d "$review_body" )
           echo "$response"
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
