@@ -38,7 +38,7 @@ on:
 jobs:
   call_reusable_workflow:
     # 末尾の[main]をコミットハッシュに変更すればCIの実行内容を特定の時点のものに固定できる
-    uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main //
+    uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main
     secrets:
       OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
       OPENAI_ORG_KEY: \${{ secrets.OPENAI_ORG_KEY }}
