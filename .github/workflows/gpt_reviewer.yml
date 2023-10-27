@@ -87,6 +87,8 @@ jobs:
             --data-urlencode 'source_lang=EN' \
             --data-urlencode 'target_lang=JA' | jq -r '.translations[].text')
 
+          echo "$review"
+
           # JSONが崩れる特殊文字をエスケープ
           review=$(echo "{ \"commit_id\":\"${{ github.event.pull_request.head.sha }}\", \"event\":\"COMMENT\", \"body\":\"$review\" }" | jq @json)
 
