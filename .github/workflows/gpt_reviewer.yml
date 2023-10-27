@@ -92,7 +92,8 @@ jobs:
           # 改行を置換
           review=$(echo -n "$review" | sed ':a;N;$!ba;s/\n/\\n/g')
           # JSONが崩れる特殊文字をエスケープ
-          review=$(jq -n --arg review "$review" commit_id "${{ github.event.pull_request.head.sha }}" '{ "commit_id":"$commit_id", "event":"COMMENT", "body":"$review" }')
+          commit_id="${{ github.event.pull_request.head.sha }}"
+          review=$(jq -n --arg review "$review" commit_id "$commit_id" '{ "commit_id":"$commit_id", "event":"COMMENT", "body":"$review" }')
 
           echo "$review"
 
