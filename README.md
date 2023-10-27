@@ -8,7 +8,10 @@
 ### 必要な環境変数
 
  - OPENAI_API_KEY: OpenAIのAPIキー
- - OPENAI_ORG_KEY: OpenAIのArsagaのOrganization ID
+ - OPENAI_ORG_KEY: OpenAIのOrganization ID
+ - AZURE_OPENAI_API_KEY: Azure OpenAIのAPIキー
+ - AZURE_OPENAI_API: Azure OpenAIのAPIパス
+ - TRANSLATION_API_KEY: DeepL ProプランのAPIトークン
 
 ### 初期設定
 
@@ -32,7 +35,6 @@ jobs:
     # 末尾の[main]をコミットハッシュに変更すればCIの実行内容を特定の時点のものに固定できる
     uses: arsaga-partners/arsaga_code_reviewer/.github/workflows/gpt_reviewer.yml@main //
     secrets:
-      PERSONAL_GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
       OPENAI_ORG_KEY: \${{ secrets.OPENAI_ORG_KEY }}
       AZURE_OPENAI_API: \${{ secrets.AZURE_OPENAI_API }}
