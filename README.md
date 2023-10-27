@@ -9,13 +9,18 @@
 
  - OPENAI_API_KEY: OpenAIのAPIキー
  - OPENAI_ORG_KEY: OpenAIのOrganization ID
- - AZURE_OPENAI_API_KEY: Azure OpenAIのAPIキー
- - AZURE_OPENAI_API: Azure OpenAIのAPIパス
+ - AZURE_OPENAI_API_KEY: Azure OpenAIのAPIキー(Option)
+ - AZURE_OPENAI_API: Azure OpenAIのAPIパス(Option)
  - TRANSLATION_API_KEY: DeepL ProプランのAPIトークン
+
+### 仕様
+
+ - (初期設定では)devおよびdevelopブランチへのプルリクを開いた際に、GPTへのプルリクレビューとその翻訳をしてくれるGithubActionsです
+ - Azureへの設定はオプションですが、プルリクのdiffが大きい場合はトークン数の大きいGPTモデルに自動で切り替わってエラーになるので設定する方がベターです
 
 ### 初期設定
 
-下記のコマンドを右のアイコンでコピーしてプロジェクトのルートディレクトリで実行する
+環境変数をGithubに設定後、下記のコマンドを右のアイコンでコピーしてプロジェクトのルートディレクトリで実行する
 
 ```bash
 # .github/workflows ディレクトリがなければ作成
