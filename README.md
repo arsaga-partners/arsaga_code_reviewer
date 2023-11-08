@@ -49,3 +49,8 @@ jobs:
       PATCH_PR: \${{ github.event.pull_request.number }}
       PATCH_REPO: \${{ github.repository }}" > ./.github/workflows/call_gpt_reviewer.yml
 ```
+
+## License
+Copyright 2023 Arsaga Partners, Inc.
+
+Licensed under the MIT License.
